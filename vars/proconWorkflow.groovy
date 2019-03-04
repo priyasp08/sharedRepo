@@ -18,6 +18,12 @@ def call(body) {
 	body()
 try {
 node {
+
+ stage('preparation')
+  {
+  runSonarQubeAnalysis = (config.sonarqubeAnalysis!=null)?config.sonarqubeAnalysis:true
+  echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
+ }
  
  stage('Checkout'){
   echo "Git Checkout"
@@ -29,10 +35,12 @@ node {
   sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
   }
  stage('SonarQube Analysis'){
+ if (runSonarQubeAnalysis){
   echo "Hi Sonar"
   withSonarQubeEnv('sonar-6'){
    def mvnHome = tool 'Maven-3.6'
    sh("${mvnHome}/bin/mvn sonar:sonar")
+  }
   }
   }
 } 
