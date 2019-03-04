@@ -23,6 +23,8 @@ node {
   {
   runSonarQubeAnalysis = (config.sonarqubeAnalysis!=null)?config.sonarqubeAnalysis:true
   echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
+  branchName = "${env.BRANCH_NAME}"
+  echo("branchName: ${branchName}")
  }
  
  stage('Checkout'){
