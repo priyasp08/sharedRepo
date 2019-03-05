@@ -25,7 +25,7 @@ node {
   echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
   branchName = "${env.BRANCH_NAME}"
   echo("branchName: ${branchName}")
-  def sonarTeamPreFix = Constants.getSonarTeamPrefix()
+  sonarTeamPreFix = Constants.getSonarTeamPrefix()
   echo("sonarTeamPreFix: ${sonarTeamPreFix}")
  }
  
