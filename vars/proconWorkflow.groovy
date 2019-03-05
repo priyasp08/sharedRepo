@@ -25,8 +25,7 @@ node {
   echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
   branchName = "${env.BRANCH_NAME}"
   echo("branchName: ${branchName}")
-  sonarTeamPreFix = Constants.getSonarTeamPrefix()
-  echo("sonarTeamPreFix: ${sonarTeamPreFix}")
+  
  }
  
  stage('Checkout'){
