@@ -9,7 +9,7 @@ import groovy.json.JsonOutput
 import java.net.URL
 import org.jenkinsci.plugins.gitclient.Git;
 import org.jenkinsci.plugins.gitclient.GitClient;
-import com.bosch.*
+import com.bosch.devops.procon*
 
 def call(body) {
 	// evaluate the body block, and collect configuration into the object
@@ -17,6 +17,8 @@ def call(body) {
 	body.resolveStrategy = Closure.DELEGATE_FIRST
 	body.delegate = config
 	body()
+
+  def proconWorkflowHelper = new proconWorkflowHelper()
 try {
 node {
 
@@ -59,9 +61,10 @@ node {
 } 
 }
 catch (exc) {
-/*
+
  err = caughtError
- currentBuild.result = "FAILURE"
+ echo err
+/* currentBuild.result = "FAILURE"
  String recipient = 'infra@lists.jenkins-ci.org'
  mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) failed",
          body: "It appears that ${env.BUILD_URL} is failing, somebody should do something about that",
