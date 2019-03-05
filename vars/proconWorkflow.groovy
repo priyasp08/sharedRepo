@@ -9,7 +9,7 @@ import groovy.json.JsonOutput
 import java.net.URL
 import org.jenkinsci.plugins.gitclient.Git;
 import org.jenkinsci.plugins.gitclient.GitClient;
-import com.bosch.devops.procon*
+import com.bosch.devops.procon.*
 
 def call(body) {
 	// evaluate the body block, and collect configuration into the object
