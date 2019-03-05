@@ -46,7 +46,7 @@ node {
 	echo "Hi Sonar"
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
-		sh("${mvnHome}/bin/mvn sonar:sonar")
+		//sh("${mvnHome}/bin/mvn sonar:sonar")
     proconWorkflowHelper.addJacocoDependyForMavenProject()
 
 		}
