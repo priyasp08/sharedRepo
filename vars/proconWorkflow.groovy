@@ -25,27 +25,32 @@ node {
   echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
   branchName = "${env.BRANCH_NAME}"
   echo("branchName: ${branchName}")
+  def sonarTeamPreFix = Constants.getSonarTeamPrefix()
+  echo("sonarTeamPreFix: ${sonarTeamPreFix}")
  }
  
  stage('Checkout'){
   echo "Git Checkout"
   checkout scm
  }
+ 
  stage('Build'){
   def mvnHome = tool 'Maven-3.6'
   //def javahome = tool 'openjdk'
   sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
   }
+  
  stage('SonarQube Analysis'){
  if (runSonarQubeAnalysis){
-  echo "Hi Sonar"
-  withSonarQubeEnv('sonar-6'){
-   def mvnHome = tool 'Maven-3.6'
-   sh("${mvnHome}/bin/mvn sonar:sonar")
-  }
-  }
-  }
-} 
+	if (branchName.startsWith("master") || branchName.startsWith("release") || branchName.startsWith("develop")){
+	echo "Hi Sonar"
+	withSonarQubeEnv('sonar-6'){
+		def mvnHome = tool 'Maven-3.6'
+		sh("${mvnHome}/bin/mvn sonar:sonar")
+		}
+	  }
+	}
+  } 
  
 } 
 catch (exc) {
