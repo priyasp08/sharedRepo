@@ -9,6 +9,7 @@ import groovy.json.JsonOutput
 import java.net.URL
 import org.jenkinsci.plugins.gitclient.Git;
 import org.jenkinsci.plugins.gitclient.GitClient;
+import com.bosch.*
 
 def call(body) {
 	// evaluate the body block, and collect configuration into the object
@@ -46,6 +47,8 @@ node {
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
 		sh("${mvnHome}/bin/mvn sonar:sonar")
+    proconWorkflowHelper.addJacocoDependyForMavenProject()
+
 		}
 	  }
 	}
