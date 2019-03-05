@@ -44,10 +44,12 @@ node {
  if (runSonarQubeAnalysis){
 	if (branchName.startsWith("master") || branchName.startsWith("release") || branchName.startsWith("develop")){
 	echo "Hi Sonar"
+  proconWorkflowHelper.addJacocoDependyForMavenProject()
+  echo "calling"
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
 		//sh("${mvnHome}/bin/mvn sonar:sonar")
-    proconWorkflowHelper.addJacocoDependyForMavenProject()
+    //proconWorkflowHelper.addJacocoDependyForMavenProject()
 
 		}
 	  }
