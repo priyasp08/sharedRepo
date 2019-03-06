@@ -60,7 +60,7 @@ node {
 } 
 }
 catch (exc) {
-
+ print exc
  err = caughtError
  echo err
 /* currentBuild.result = "FAILURE"
