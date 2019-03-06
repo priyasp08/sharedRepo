@@ -37,26 +37,26 @@ node {
  }
  
  stage('Build'){
-  //def mvnHome = tool 'Maven-3.6'
-  //def javahome = tool 'openjdk'
-  //sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
+  def mvnHome = tool 'Maven-3.6'
+  def javahome = tool 'openjdk'
+  sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
   }
   
  stage('SonarQube Analysis'){
  if (runSonarQubeAnalysis){
 	if (branchName.startsWith("master") || branchName.startsWith("release") || branchName.startsWith("develop")){
 	echo "Hi Sonar"
-  proconWorkflowHelper.addJacocoDependyForMavenProject()
-  echo "calling"
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
-		//sh("${mvnHome}/bin/mvn sonar:sonar")
-    //proconWorkflowHelper.addJacocoDependyForMavenProject()
+    proconWorkflowHelper.addJacocoDependyForMavenProject()
+		sh("${mvnHome}/bin/mvn sonar:sonar")
+    proconWorkflowHelper.addJacocoDependyForMavenProject()
 
 		}
 	  }
 	}
-  } 
+  }
+  
  
 } 
 }
