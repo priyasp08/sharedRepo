@@ -49,7 +49,7 @@ node {
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
     proconWorkflowHelper.addJacocoDependyForMavenProject()
-		sh("${mvnHome}/bin/mvn sonar:sonar -Dsonar.tests=src/test")
+		sh("${mvnHome}/bin/mvn sonar:sonar -Dsonar.tests=src/test -Dsonar.java.binaries=target/classes -Dsonar.jacoco.reportPaths=target/jacoco.exec -Dsonar.junit.reportPaths=target/surefire-reports/")
     //proconWorkflowHelper.addJacocoDependyForMavenProject()
 
 		}
