@@ -32,8 +32,8 @@ node {
  }
  
  stage('Checkout'){
-  //echo "Git Checkout"
-  //checkout scm
+  echo "Git Checkout"
+  checkout scm
  }
  
  stage('Build'){
