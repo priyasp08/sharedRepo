@@ -36,11 +36,11 @@ node {
   checkout scm
  }
  
- stage('Build'){
+ /*stage('Build'){
     def mvnHome = tool 'Maven-3.6'
     def javahome = tool 'openjdk'
     sh("${mvnHome}/bin/mvn clean")
-  }
+  }*/
   
  stage('SonarQube Analysis'){
  if (runSonarQubeAnalysis){
