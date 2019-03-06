@@ -49,32 +49,13 @@ node {
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
     proconWorkflowHelper.addJacocoDependyForMavenProject()
-		sh("${mvnHome}/bin/mvn sonar:sonar")
+		sh("${mvnHome}/bin/mvn sonar:sonar -Dsonar.tests=src/test")
     //proconWorkflowHelper.addJacocoDependyForMavenProject()
 
 		}
 	  }
 	}
-  }
-
-  stage('Publish tests results'){
-					echo ("Publish tests results")
-					if (isTestsExecutable) { 
-						junit 'reports/*.xml'
-						def htmlFiles
-						dir('reports'){
-							htmlFiles = findFiles glob: '*.html'
-						}
-						//Publish HTML test results in Jenkins
-						//archiveArtifacts artifacts: 'reports/*.html'
-						publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, includes: '**/*.*',reportDir: 'reports', reportFiles: htmlFiles.join(','), reportName: 'Test Case Results', allowMissing: true,alwaysLinkToLastBuild: true,keepAll: true])
-					}
-					else{
-						echo ("No  tests executed for branch: ${branchName}")
-					}
-				}
-			}
-  
+  } 
  
 } 
 }
