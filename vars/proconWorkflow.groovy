@@ -39,7 +39,7 @@ node {
  stage('Build'){
     def mvnHome = tool 'Maven-3.6'
    // def javahome = tool 'openjdk'
-    sh("${mvnHome}/bin/mvn clean")
+    sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
   }
   
   stage('SonarQube Analysis'){
