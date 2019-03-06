@@ -50,8 +50,7 @@ node {
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
 		sh("${mvnHome}/bin/mvn checkstyle:checkstyle sonar:sonar -Dsonar.tests=src/test -Dsonar.java.binaries=target/classes -Dsonar.jacoco.reportPaths=target/jacoco.exec -Dsonar.junit.reportPaths=target/surefire-reports/")
-     def checkstyle = scanForIssues tool: [$class: 'CheckStyle'], pattern: '**/target/checkstyle-result.xml'
-        publishIssues issues:[checkstyle]
+    
     //proconWorkflowHelper.addJacocoDependyForMavenProject()
 
 		}
