@@ -6,7 +6,7 @@ def jaCoCoDependencyForMaven() {
 	return temp
 }
 
-/*def  addJacocoDependyForMavenProject() {
+def  addJacocoDependyForMavenProject() {
 	//def moduleMap = [:]
 	//normaly, when the global pom.xml contains <modules> we have a multimodule project
 	if(!readFile('pom.xml').contains("<modules>")) {
@@ -26,4 +26,4 @@ def jaCoCoDependencyForMaven() {
 	}
 	//like the method name says it: convert the map of all modules & modulepath to a map with sonarproperties
 	//return transformModuleMapToSonarConfigMap(moduleMap)
-}*/
+}
