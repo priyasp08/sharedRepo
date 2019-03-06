@@ -61,8 +61,8 @@ node {
 }
 catch (exc) {
 
- err = caughtError
- echo err
+ //err = caughtError
+ //echo err
 /* currentBuild.result = "FAILURE"
  String recipient = 'infra@lists.jenkins-ci.org'
  mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) failed",
