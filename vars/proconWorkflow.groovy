@@ -36,13 +36,13 @@ node {
   checkout scm
  }
  
- /*stage('Build'){
+ stage('Build'){
     def mvnHome = tool 'Maven-3.6'
     def javahome = tool 'openjdk'
     sh("${mvnHome}/bin/mvn clean")
-  }*/
+  }
   
- stage('SonarQube Analysis'){
+/* stage('SonarQube Analysis'){
  if (runSonarQubeAnalysis){
 	if (branchName.startsWith("master") || branchName.startsWith("release") || branchName.startsWith("develop")){
 	echo "Hi Sonar"
@@ -55,7 +55,7 @@ node {
 		}
 	  }
 	}
-  } 
+  } */
  
 } 
 }
