@@ -9,7 +9,7 @@
                 <goal>prepare-agent</goal>
             </goals>
             <configuration>
-                  <destFile>${project.build.directory}/test-results/coverage/jacoco/jacoco.exec</destFile>
+                  <destFile>../test-results/coverage/jacoco/jacoco.exec</destFile>
             </configuration>            
         </execution>
         <execution>
