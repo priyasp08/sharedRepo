@@ -7,10 +7,7 @@
         <id>default-prepare-agent</id>
             <goals>
                 <goal>prepare-agent</goal>
-            </goals>
-            <configuration>
-                  <destFile>./target/test-results/coverage/jacoco/jacoco.exec</destFile>
-            </configuration>            
+            </goals>           
         </execution>
         <execution>
             <id>default-report</id>
