@@ -49,7 +49,7 @@ node {
 	echo "Hi Sonar"
 	withSonarQubeEnv('sonar-6'){
 		def mvnHome = tool 'Maven-3.6'
-    sh("${mvnHome}/bin/mvn clean test jacoco:report")
+    sh("${mvnHome}/bin/mvn clean test jacoco:report surefire-report:report ")
 		sh("${mvnHome}/bin/mvn checkstyle:checkstyle cobertura:cobertura sonar:sonar")
     checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
     cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: ' **/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0',
