@@ -56,6 +56,24 @@ node {
 	  }
 	}
   }
+
+  stage('Publish tests results'){
+					echo ("Publish tests results")
+					if (isTestsExecutable) { 
+						junit 'reports/*.xml'
+						def htmlFiles
+						dir('reports'){
+							htmlFiles = findFiles glob: '*.html'
+						}
+						//Publish HTML test results in Jenkins
+						//archiveArtifacts artifacts: 'reports/*.html'
+						publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, includes: '**/*.*',reportDir: 'reports', reportFiles: htmlFiles.join(','), reportName: 'Test Case Results', allowMissing: true,alwaysLinkToLastBuild: true,keepAll: true])
+					}
+					else{
+						echo ("No  tests executed for branch: ${branchName}")
+					}
+				}
+			}
   
  
 } 
