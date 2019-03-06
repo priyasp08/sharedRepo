@@ -1,3 +1,6 @@
+#!/usr/bin/groovy
+package com.bosch.devops.procon
+
 def jaCoCoDependencyForMaven() {
 	def temp = libraryResource 'sonar/jaCoCoDependencyForMaven.txt'
 	return temp
