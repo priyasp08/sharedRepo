@@ -39,7 +39,7 @@ node {
  stage('Build'){
     def mvnHome = tool 'Maven-3.6'
     def javahome = tool 'openjdk'
-    sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
+    sh("${mvnHome}/bin/mvn clean package -Dmaven.test.skip=true")
   }
   
  stage('SonarQube Analysis'){
@@ -61,8 +61,8 @@ node {
 }
 catch (exc) {
 
- //err = caughtError
- //echo err
+ err = caughtError
+ echo err
 /* currentBuild.result = "FAILURE"
  String recipient = 'infra@lists.jenkins-ci.org'
  mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) failed",
