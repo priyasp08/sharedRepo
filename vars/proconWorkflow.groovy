@@ -31,10 +31,10 @@ node {
   
  }
  
- stage('Checkout'){
+ /*stage('Checkout'){
   echo "Git Checkout"
   checkout scm
- }
+ }*/
  
  stage('Build'){
   //def mvnHome = tool 'Maven-3.6'
