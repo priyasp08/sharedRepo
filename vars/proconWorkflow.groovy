@@ -22,7 +22,7 @@ try {
   node {
 
     stage('Send email') {
-      def mailRecipients = "shanmugapriyasp68@gmail.com"
+      def mailRecipients = "manickaraj.shanmugapriya@in.bosch.com"
       def jobName = currentBuild.fullDisplayName
       emailext body: '''${SCRIPT, template="my-email.template"}''',
       subject: "[Jenkins] ${jobName}",
