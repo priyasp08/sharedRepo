@@ -17,51 +17,58 @@ def call(body) {
 	body.resolveStrategy = Closure.DELEGATE_FIRST
 	body.delegate = config
 	body()
-
   def proconWorkflowHelper = new proconWorkflowHelper()
 try {
-node {
+  node {
 
- stage('preparation')
-  {
-  runSonarQubeAnalysis = (config.sonarqubeAnalysis!=null)?config.sonarqubeAnalysis:true
-  echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
-  branchName = "${env.BRANCH_NAME}"
-  echo("branchName: ${branchName}")
-  
- }
+    stage('Send email') {
+      def mailRecipients = "shanmugapriyasp68@gmail.com"
+      def jobName = currentBuild.fullDisplayName
+      emailext body: '''${SCRIPT, template="my-email.template"}''',
+      subject: "[Jenkins] ${jobName}",
+      to: "${mailRecipients}",
+      replyTo: "${mailRecipients}"
+    }
+
+    stage('preparation')
+    {
+      runSonarQubeAnalysis = (config.sonarqubeAnalysis!=null)?config.sonarqubeAnalysis:true
+      echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
+      branchName = "${env.BRANCH_NAME}"
+      echo("branchName: ${branchName}") 
+    }
  
- stage('Checkout'){
-  echo "Git Checkout"
-  checkout scm
- }
+    stage('Checkout')
+    {
+      echo "Git Checkout"
+      checkout scm
+     }
  
- stage('Build'){
-    def mvnHome = tool 'Maven-3.6'
-    proconWorkflowHelper.addJacocoDependyForMavenProject()
+    stage('Build')
+    {
+      def mvnHome = tool 'Maven-3.6'
+      proconWorkflowHelper.addJacocoDependyForMavenProject()
    // def javahome = tool 'openjdk'
-    sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
-  }
+      sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true")
+    }
   
-  stage('SonarQube Analysis'){
- if (runSonarQubeAnalysis){
-	if (branchName.startsWith("master") || branchName.startsWith("release") || branchName.startsWith("develop")){
-	echo "Hi Sonar"
-	withSonarQubeEnv('sonar-6'){
-		def mvnHome = tool 'Maven-3.6'
-    sh("${mvnHome}/bin/mvn clean test jacoco:report surefire-report:report ")
-		sh("${mvnHome}/bin/mvn checkstyle:checkstyle cobertura:cobertura sonar:sonar")
-    checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
-    cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: ' **/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0',
-     maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
-    //proconWorkflowHelper.addJacocoDependyForMavenProject()
-
-		}
-	  }
-	}
-  } 
+  /*  stage('SonarQube Analysis')
+    {
+    if (runSonarQubeAnalysis){
+	    if (branchName.startsWith("master") || branchName.startsWith("release") || branchName.startsWith("develop")){
+	      echo "Hi Sonar"
+	      withSonarQubeEnv('sonar-6'){
+		      def mvnHome = tool 'Maven-3.6'
+		      sh("${mvnHome}/bin/mvn checkstyle:checkstyle cobertura:cobertura sonar:sonar ")
+		        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: ' **///target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0',
+		       // maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+		       // proconWorkflowHelper.addJacocoDependyForMavenProject()
+		    //  }
+	     // }
+	    //}
+   // } 
  
-} 
+  } 
 }
 catch (exc) {
  print exc
