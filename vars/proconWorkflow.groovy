@@ -44,13 +44,13 @@ try {
       checkout scm 
      }
  
-    /*stage('Build')
+    stage('Build')
     {
       def mvnHome = tool 'Maven-3.6'
       proconWorkflowHelper.addJacocoDependyForMavenProject()
    // def javahome = tool 'openjdk'
       sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true") 
-    }*/
+    }
   
    stage('SonarQube Analysis')
     {
@@ -62,7 +62,7 @@ try {
 		      sh("${mvnHome}/bin/mvn cobertura:cobertura sonar:sonar ")
 		        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: ' **/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0',
 		        maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
-		       proconWorkflowHelper.addJacocoDependyForMavenProject()
+		       
 		     }
 	     }
 	    }
