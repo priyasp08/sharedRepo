@@ -59,7 +59,7 @@ try {
 	      echo "Hi Sonar"
 	      withSonarQubeEnv('sonar-6'){
 		      def mvnHome = tool 'Maven-3.6'
-		      sh("${mvnHome}/bin/mvn checkstyle:checkstyle cobertura:cobertura sonar:sonar ")
+		      sh("${mvnHome}/bin/mvn cobertura:cobertura sonar:sonar ")
 		        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: ' **/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0',
 		        maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
 		       proconWorkflowHelper.addJacocoDependyForMavenProject()
