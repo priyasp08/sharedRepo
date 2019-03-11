@@ -32,25 +32,25 @@ try {
 
     stage('preparation')
     {
-     /* runSonarQubeAnalysis = (config.sonarqubeAnalysis!=null)?config.sonarqubeAnalysis:true
+      runSonarQubeAnalysis = (config.sonarqubeAnalysis!=null)?config.sonarqubeAnalysis:true
       echo("runSonarQubeAnalysis: ${runSonarQubeAnalysis}")
       branchName = "${env.BRANCH_NAME}"
-      echo("branchName: ${branchName}") */
+      echo("branchName: ${branchName}") 
     }
  
     stage('Checkout')
     {
-    /*  echo "Git Checkout"
-      checkout scm */
+      echo "Git Checkout"
+      checkout scm 
      }
  
-    stage('Build')
+    /*stage('Build')
     {
-     /* def mvnHome = tool 'Maven-3.6'
+      def mvnHome = tool 'Maven-3.6'
       proconWorkflowHelper.addJacocoDependyForMavenProject()
    // def javahome = tool 'openjdk'
-      sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true") */
-    }
+      sh("${mvnHome}/bin/mvn -B test -Dmaven.test.skip=true") 
+    }*/
   
    stage('SonarQube Analysis')
     {
